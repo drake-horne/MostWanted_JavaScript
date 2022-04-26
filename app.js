@@ -193,90 +193,102 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
-function findPersonFamily(person, people){
-    let personFamily = `${person.firstName} ${person.lastName} family members are:\n`
-    personFamily += findPersonSpouse(person, people)
-    personFamily += findPersonSiblings(person, people)
-    personFamily += findPersonParents(person, people)
-    return personFamily
-}
-function findPersonSpouse(person, people){
-    let personSpouse = ``
-    let spouse = people.filter(function(el){
-        if(person.currentSpouse == el.id){
-            return true
-        }
-        else{
-            return false
-        } 
-    })
-    if(spouse.length == 0){
-        personSpouse += `\nNo spouse in the system.\n`; 
-    }
-    else if(spouse.length == 1){
-        personSpouse += `\nSpouse:\n${spouse[0].firstName} ${spouse[0].lastName}\n`;
-    }
-    return personSpouse
-}
-function findPersonParents(person, people){
-    let personParents = ``
-    let parents = people.filter(function(el){
-        if(person.parents.includes(el.id)){
-                return true
-            }
-            else{
-                return false
-            }   
-        })
+// function findPersonFamily(person, people){
+//     let personFamily = `${person.firstName} ${person.lastName} family members are:\n`
+//     personFamily += findPersonSpouse(person, people)
+//     personFamily += findPersonSiblings(person, people)
+//     personFamily += findPersonParents(person, people)
+//     return personFamily
+// }
+// function findPersonSpouse(person, people){
+//     let personSpouse = ``
+//     let spouse = people.filter(function(el){
+//         if(person.currentSpouse == el.id){
+//             return true
+//         }
+//         else{
+//             return false
+//         } 
+//     })
+//     if(spouse.length == 0){
+//         personSpouse += `\nNo spouse in the system.\n`; 
+//     }
+//     else if(spouse.length == 1){
+//         personSpouse += `\nSpouse:\n${spouse[0].firstName} ${spouse[0].lastName}\n`;
+//     }
+//     return personSpouse
+// }
+// function findPersonParents(person, people){
+//     let personParents = ``
+//     let parents = people.filter(function(el){
+//         if(person.parents.includes(el.id)){
+//                 return true
+//             }
+//             else{
+//                 return false
+//             }   
+//         })
        
-    let parentList = parents.map(function(el){
-        return `\n${el.firstName} ${el.lastName}`
-    })
-    if(parents.length > 0){
-        personParents += `\nParents:${parentList}\n`
-    }
-    else{
-        personParents += `\nNo parents in the system.\n`
-        }
-    return personParents    
-}
-function findPersonSiblings(person, people){
-    let personSiblings = ``
-    let siblings = people.filter(function(el){
-        if((person.parents.includes(el.parents[0]) || person.parents.includes(el.parents[1])) && person.id != el.id){
-            return true;
-        }
-        else{
-            return false;
-        }
-    })
-    let siblingList = siblings.map(function(el){
-        return `\n${el.firstName} ${el.lastName}`
-    })
-    if(siblings.length > 0){
-        personSiblings += `\nSiblings:${siblingList}\n`        
-    }
-    else{
-        personSiblings += `\nNo siblings in the system.\n`
-    }
-    return personSiblings
-}
+//     let parentList = parents.map(function(el){
+//         return `\n${el.firstName} ${el.lastName}`
+//     })
+//     if(parents.length > 0){
+//         personParents += `\nParents:${parentList}\n`
+//     }
+//     else{
+//         personParents += `\nNo parents in the system.\n`
+//         }
+//     return personParents    
+// }
+// function findPersonSiblings(person, people){
+//     let personSiblings = ``
+//     let siblings = people.filter(function(el){
+//         if((person.parents.includes(el.parents[0]) || person.parents.includes(el.parents[1])) && person.id != el.id){
+//             return true;
+//         }
+//         else{
+//             return false;
+//         }
+//     })
+//     let siblingList = siblings.map(function(el){
+//         return `\n${el.firstName} ${el.lastName}`
+//     })
+//     if(siblings.length > 0){
+//         personSiblings += `\nSiblings:${siblingList}\n`        
+//     }
+//     else{
+//         personSiblings += `\nNo siblings in the system.\n`
+//     }
+//     return personSiblings
+// }
 
-function findPersonChildren(person, people){
-    let children = people.filter(function(el){
-        if(el.parents.includes(person.id)){
-            return true;
-        }
-        else{
-            return false;
-        }
-    })
-    return children
-}
+// function findPersonChildren(person, people){
+//     let children = people.filter(function(el){
+//         if(el.parents.includes(person.id)){
+//             return true;
+//         }
+//         else{
+//             return false;
+//         }
+//     })
+//     return children
+// }
 
-function findPersonDescendants(person, people){
+// function findPersonDescendants(person, people){
+//     let descendants = `Descendants: \n`
+//     let children = findPersonChildren(person, people)
+//     descendants += listNames(chidren, 'Children: ')
+//     let hasChildren = children.filter(el,people)
+//         let grandKid = findPersonChildren(el,people)
+//         if (grandKid.length === 0){
+//             return false
+//         }
+//         else{
+//            return true 
     
-}
+//         }
+       
+// }
 
 function searchByTraits(people) {
     let searchOption = promptFor('Would you like to search for one or many traits?(type "one" or "many") ', chars)
@@ -293,14 +305,13 @@ function searchBySingleTrait(people){
         case 'gender':
             let genderOption = promptFor('Please choose a gender.("male" or "female"', chars)
             let genderedPeopleArray = people.filter(function(person){
-                for(person in people){
-                    if(genderOption === person.gender){
-                    
-                        return true;
-                    }
+                if(genderOption === person.gender){
+                    return true;
                 }
+                   
             })
-            return genderedPeopleArray
+            displayPeople(genderedPeopleArray)
+            
             
         case 'eyecolor':
             let eyeColorOption = promptFor('Please choose an eye color.("brown", "black", "hazel", "blue", "green"', chars)
@@ -310,7 +321,7 @@ function searchBySingleTrait(people){
                 }
                 
             })
-            return eyeColorPeopleArray
+            displayPeople(eyeColorPeopleArray)
         
       
 
@@ -322,7 +333,7 @@ function searchBySingleTrait(people){
                 }
                 
             })
-            return heightPeopleArray
+            displayPeople(heightPeopleArray)
 
         case 'weight':
             let weightOption = promptFor('Please choose a weight.("100", "110","241", "187", "249", "184", "112", "235", "156", "179", "118", "205", "199", "137", "170", "256", "207", "115", "250", "162","175"', chars)
@@ -332,7 +343,7 @@ function searchBySingleTrait(people){
                 }
                 
             })
-            return weightPeopleArray
+            displayPeople(weightPeopleArray)
 
         case 'occupation':
             let occupationOption = promptFor('Please choose an occupation.("programmer", "assistant", "landscaper", "nurse", "student", "architect", "doctor", "politician"', chars)
@@ -342,7 +353,7 @@ function searchBySingleTrait(people){
                 }
                 
             })
-            return occupationPeopleArray
+            displayPeople(occupationPeopleArray)
 
 
     }
