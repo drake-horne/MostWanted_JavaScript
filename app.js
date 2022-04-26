@@ -113,7 +113,7 @@ function searchByName(people) {
     });
     return foundPerson;
 }
-// End of searchByName()
+// End of searchByName() 
 
 /**
  * This function will be useful for STRINGIFYING a collection of person-objects
@@ -138,10 +138,18 @@ function displayPeople(people) {
  * @param {Object} person       A singular object.
  */
 function displayPerson(person) {
-    let personInfo = `First Name: ${person.firstName}\n`;
-    personInfo += `Last Name: ${person.lastName}\n`;
+    let personInfo = "First Name: " + person.firstName + "\n";
+    personInfo += "Last Name: " + person.lastName + "\n";
+    personInfo += "Gender: " + person.gender + "\n";
+    personInfo += "Date Of Birth: " + person.dob + "\n";
+    personInfo += "Height: " + person.height + "\n";
+    personInfo += "Weight: " + person.weight + "\n";
+    personInfo += "Eye Color: " + person.eyeColor + "\n";
+    personInfo += "Occupation: " + person.occupation + "\n";
+    personInfo += "Parents: " + person.parents + "\n";
+    personInfo += "Current Spouse: " + person.currentSpouse + "\n";
     //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
-    alert(personInfo);
+    alert(personInfo);  
 }
 // End of displayPerson()
 
