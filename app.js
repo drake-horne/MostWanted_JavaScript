@@ -19,7 +19,7 @@ function app(people) {
     // promptFor() is a custom function defined below that helps us prompt and validate input more easily
     // Note that we are chaining the .toLowerCase() immediately after the promptFor returns its value
     let searchType = promptFor(
-        "Do you know the name of the person you are looking for? Enter 'yes' or 'no'",
+        "Do you know the name of the person you are looking for? Enter 'yes' or 'no'\n",
         yesNo
     ).toLowerCase();
     let searchResults;
@@ -59,7 +59,7 @@ function mainMenu(person, people) {
         return app(people);
     }
     let displayOption = prompt(
-        `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
+        `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'descendants'?\ntype the option you want or type 'restart' or 'quit'.`
     );
     // Routes our application based on the user's input
     switch (displayOption) {
@@ -192,3 +192,52 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+// function findPersonFamily(person, people){
+//     let personFamily = "Parents: " + person.parents + "\n";
+//     personFamily += "Siblings: " + findSiblings(person, people) + "\n";
+//     personFamily += "Children: " + findChildren(person, people) + "\n";
+//     personFamily += "StepChildren: " + findStepChildren(people, person) + "\n";
+//     personFamily += "Spouse: " + person.spouse + "\n";
+//     return personFamily;
+// }
+// function findSiblings(person, people){
+//     if(person.parents.length === 0){
+//         return 'None';    
+//     }
+//     let siblings = people.filter(function(el){
+//         if(el.parent[0] === person.parents[0] ||
+//             el.parents[0] === person.parents[1] ||
+//             el.parents[1] === person.parents[0] ||
+//             el.parents[1] === person.parents[1]) 
+//         return true;    
+
+    
+//         else {
+//             return false;
+//         }}
+//     console.log('no siblngs');
+//     )}
+
+
+
+function searchByTraits(){
+    let menuSelection = promptFor('Do you know what trait you are looking for? \n 1)"gender", \n 2)"age"')
+    let specificTrait;
+    let promptText;
+
+    switch(menuSelection){
+        case "1":
+        case "gender":
+            specificTrait = "gender"
+            promptText = "gender"
+        
+        break;
+        case "2":
+        case "age":
+            specificTrait = "age"
+            promptText = "age"
+    }
+return trait
+    
+}
