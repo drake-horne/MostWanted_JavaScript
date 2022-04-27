@@ -363,44 +363,44 @@ function searchByGender(people){
 }
     
 function searchByeyeColor(people) {
-    let eyeSelection = promptFor("What is the gender you are searching for?", chars);
+    let eyeSelection = promptFor("What is the eyecolor you are searching for?", chars);
 
 
     let foundPersons = people.filter(function (person) {
-        if (person.gender === eyeSelection ) {
+        if (person.eyeColor === eyeSelection ) {
             return true;
         }
     });
     return displayPeople(foundPersons);
 }    
 function searchByWeight(people) {
-    let weightSelection = promptFor("What is the gender you are searching for?", chars);
+    let weightSelection = promptFor("What is the weight you are searching for?", chars);
 
 
     let foundPersons = people.filter(function (person) {
-        if (person.gender === weightSelection ) {
+        if (person.weight === parseInt(weightSelection)) {
             return true;
         }
     });
     return displayPeople(foundPersons);
 }    
 function searchByHeight(people) {
-    let heightSelection = promptFor("What is the gender you are searching for?", chars);
+    let heightSelection = promptFor("What is the height you are searching for?", chars);
 
 
     let foundPersons = people.filter(function (person) {
-        if (person.gender === heightSelection ) {
+        if (person.height === parseInt(heightSelection)) {
             return true;
         }
     });
     return displayPeople(foundPersons);
 }    
 function searchByOccupation(people) {
-    let occupationSelection = promptFor("What is the gender you are searching for?", chars);
+    let occupationSelection = promptFor("What is the occupation you are searching for?", chars);
 
 
     let foundPersons = people.filter(function (person) {
-        if (person.gender === occupationSelection ) {
+        if (person.occupation === occupationSelection ) {
             return true;
         }
     });
