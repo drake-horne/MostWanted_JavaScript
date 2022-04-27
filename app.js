@@ -192,6 +192,18 @@ function chars(input) {
 
 // //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // // Any additional functions can be written below this line 👇. Happy Coding! 😁
+function listNames(people, relationship){
+    let nameList = people.map(function(el){
+        return `\n${el.firstName} ${el.lastName}`
+    })
+    if(people.length > 0){
+        return `\n${relationship}${nameList}\n`      
+    }
+    else{
+        return `\nNo ${relationship} in the system.\n`
+    }
+
+}
 
 function findPersonFamily(person, people){
     let personFamily = `${person.firstName} ${person.lastName} family members are:\n`
@@ -200,6 +212,7 @@ function findPersonFamily(person, people){
     personFamily += findPersonParents(person, people)
     return personFamily
 }
+
 function findPersonSpouse(person, people){
     let personSpouse = ``
     let spouse = people.filter(function(el){
@@ -218,6 +231,7 @@ function findPersonSpouse(person, people){
     }
     return personSpouse
 }
+
 function findPersonParents(person, people){
     let personParents = ``
     let parents = people.filter(function(el){
@@ -240,6 +254,7 @@ function findPersonParents(person, people){
         }
     return personParents    
 }
+
 function findPersonSiblings(person, people){
     let personSiblings = ``
     let siblings = people.filter(function(el){
@@ -274,6 +289,26 @@ function findPersonChildren(person, people){
     return children
 }
 
+function findPersonDescendants(person,people){
+    let descendants = `Descendants: \n`
+    let children = findPersonChildren(person, people)
+    descendants += listNames(children, 'The Children: ')
+    let hasChildren = children.filter(function(el){
+        let grandChild = findPersonChildren(el, people)
+        if (grandChild.length === 0){
+            return false
+        }
+        else{
+            return true
+        }
+    })
+    let grandChildren = hasChildren.map(function(el){
+        let grandChild = findPersonChildren(el, people)
+        return grandChild
+    })
+    descendants += listNames(grandChildren[0], 'The Grand Children: ')
+    return descendants
+}
 
 
 function searchByTraits(people) {
@@ -285,11 +320,12 @@ function searchByTraits(people) {
         return searchByMultipleTraits(people);
     }
 }
+
 function searchBySingleTrait(people){
     let theTrait = promptFor('What Trait would you like to search for? "gender", "eyecolor", "occupation", "height", "weight": ', chars)
     switch(theTrait){
         case 'gender':
-            let genderOption = promptFor('Please choose a gender.("male" or "female"', chars)
+            let genderOption = promptFor('Please choose a gender to search for: ', chars)
             let genderedPeopleArray = people.filter(function(person){
                 if(genderOption === person.gender){
                     return true;
@@ -297,10 +333,11 @@ function searchBySingleTrait(people){
                    
             })
             displayPeople(genderedPeopleArray)
+            break;
             
             
         case 'eyecolor':
-            let eyeColorOption = promptFor('Please choose an eye color.("brown", "black", "hazel", "blue", "green"', chars)
+            let eyeColorOption = promptFor('Please choose an eye color to search for: ', chars)
             let eyeColorPeopleArray = people.filter(function(person){
                 if(eyeColorOption === person.eyeColor){
                     return true;
@@ -308,31 +345,35 @@ function searchBySingleTrait(people){
                 
             })
             displayPeople(eyeColorPeopleArray)
-        
+            break;
       
 
         case 'height':
-            let heightOption = promptFor('Please choose a height to search from.("71", "65", "76", "62", "70", "72", "66", "59", "69", "74", "58", "61", "63", "67" ', chars)
+            let heightOption = promptFor('Please choose a height to search for: ',chars)
+            var theHeight = parseInt(heightOption);
             let heightPeopleArray = people.filter(function(person){
-                if(heightOption === person.height){
+                if(theHeight === person.height){
                     return true;
                 }
                 
             })
             displayPeople(heightPeopleArray)
+            break;
 
         case 'weight':
-            let weightOption = promptFor('Please choose a weight.("100", "110","241", "187", "249", "184", "112", "235", "156", "179", "118", "205", "199", "137", "170", "256", "207", "115", "250", "162","175"', chars)
+            let weightOption = promptFor('Please choose a weight to search for: ', chars)
+            var theWeight = parseInt(weightOption);
             let weightPeopleArray = people.filter(function(person){
-                if(weightOption === person.weight){
+                if(theWeight === person.weight){
                     return true;
                 }
                 
             })
             displayPeople(weightPeopleArray)
+            break;
 
         case 'occupation':
-            let occupationOption = promptFor('Please choose an occupation.("programmer", "assistant", "landscaper", "nurse", "student", "architect", "doctor", "politician"', chars)
+            let occupationOption = promptFor('Please choose an occupation to search for: ', chars)
             let occupationPeopleArray = people.filter(function(person){
                 if(occupationOption === person.occupation){
                     return true;
@@ -340,6 +381,9 @@ function searchBySingleTrait(people){
                 
             })
             displayPeople(occupationPeopleArray)
+            break;
+
+        default:
 
 
     }
@@ -350,23 +394,30 @@ function searchBySingleTrait(people){
 
 
 function searchByMultipleTraits(people){
+    var traits = []
+    let selectedTraits = promptFor('What Traits would you like to search for? "gender", "eyecolor", "occupation", "height", "weight"(please select at least 2): ', chars)
+    traits.push(selectedTraits)
+    let specificTraits = promptFor(`Please choose a ${}`)
+    let theResults = people.filter(function(person){
+        if(person.includes(traits)){
+            return true
+        }
+        displayPeople(theResults)
+
+        
+    })
+
+
+
+
+
+
+
     
 
     
 }
-//     let genderInput = promptFor("What is the person's gender you are looking for?", chars);
-//     let foundGender = people.filter(function (person) {
-//             if (person.gender == genderInput) {
-            
-//                 return true;
-//             }
-            
-//     });
-//     // let eyeColorInput = promptFor("What is the person's last name?", chars);
-//     // let occupationInput = prompFor('',chars)
 
-   
-//     return foundGender;
     
 
 
