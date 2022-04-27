@@ -192,6 +192,41 @@ function chars(input) {
 
 // //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // // Any additional functions can be written below this line 👇. Happy Coding! 😁
+function searchFor(category){
+    let input = promptFor(`Enter a ${category}`, chars)
+    return input;
+}
+function searchBy(category, argument, people){
+    let results = people.filter(function(el){
+        if(el[category] == argument){
+            return true;
+        }
+        else{
+            return false;
+        }
+    })
+    return results
+}
+
+function searchByMany(list, people){
+    let results = people.filter(function(el){
+        for(let i=0; i < list.length; i++){
+            let category = list[i][0]
+            let argument = list[i][1]
+            if(el[category] == argument && i == (list.length-1)){
+                return true;
+            }
+            else if(el[list[i][0]] == list[i][1]){
+                continue;
+            }
+            else{
+                return false;
+            }
+        }
+    })
+    return results
+}
+
 function listNames(people, relationship){
     let nameList = people.map(function(el){
         return `\n${el.firstName} ${el.lastName}`
@@ -322,8 +357,13 @@ function searchByTraits(people) {
 }
 
 function searchBySingleTrait(people){
-    let theTrait = promptFor('What Trait would you like to search for? "gender", "eyecolor", "occupation", "height", "weight": ', chars)
-    switch(theTrait){
+    let theTrait = prompt(`What trait would you like to search for? \n"gender"\n"eyecolor"\n"height"\n"weight"\n"occupation`)
+    // switch(theTrait){
+    let input;
+    switch (theTrait) {
+        case "gender":
+        input = searchFor("gender")
+        break;
         case 'gender':
             let genderOption = promptFor('Please choose a gender to search for: ', chars)
             let genderedPeopleArray = people.filter(function(person){
@@ -381,13 +421,15 @@ function searchBySingleTrait(people){
                 
             })
             displayPeople(occupationPeopleArray)
-            break;
+            // break;
 
         default:
-
+            break;
 
     }
-
+let results = searchBy(theTrait, input, people)
+let filterdResults = listNames(results, 'Your Results are: ')
+return filterdResults
 }
 
 
@@ -402,12 +444,10 @@ function searchByMultipleTraits(people){
     let manyTraits = promptFor(`Please choose a ${traits}`, chars)
     specificTraits.push(manyTraits)
     theResults = people.filter(function(person){
-        for(let trait in specificTraits){
-            if(trait in person){
-                return true;
-            }
-            
-        }
+        if(person.includes(specificTraits)){
+            return true;
+        } 
+
 
         displayPeople(theResults)
 
@@ -424,7 +464,3 @@ function searchByMultipleTraits(people){
 
     
 }
-
-    
-
-
