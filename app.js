@@ -394,17 +394,21 @@ function searchBySingleTrait(people){
 
 
 function searchByMultipleTraits(people){
-    var traits = []
+    let traits = []
+    let theResults = []
     let selectedTraits = promptFor('What Traits would you like to search for? "gender", "eyecolor", "occupation", "height", "weight"(please select at least 2): ', chars)
     traits.push(selectedTraits)
     let specificTraits = []
     let manyTraits = promptFor(`Please choose a ${traits}`, chars)
     specificTraits.push(manyTraits)
-    let theResults = people.filter(function(person){
-        for(person in people){
-            if 
-            return true;
+    theResults = people.filter(function(person){
+        for(let trait in specificTraits){
+            if(trait in person){
+                return true;
+            }
+            
         }
+
         displayPeople(theResults)
 
         
