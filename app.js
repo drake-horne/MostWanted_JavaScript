@@ -192,13 +192,13 @@ function chars(input) {
 
 // //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // // Any additional functions can be written below this line 👇. Happy Coding! 😁
-function searchFor(category){
-    let input = promptFor(`Enter a ${category}`, chars)
+function searchFor(trait){
+    let input = promptFor(`Enter a ${trait}`, chars)
     return input;
 }
-function searchBy(category, thing, people){
+function searchBy(trait, thing, people){
     let results = people.filter(function(el){
-        if(el[category] === thing){
+        if(el[trait] === thing){
             return true;
         }
         else{
@@ -207,11 +207,7 @@ function searchBy(category, thing, people){
     })
     return results
 }
-function correctionCase(input){
-    return input.toLowerCase().includes("weight") ||input.toLowerCase().includes("gender") 
-    || input.toLowerCase().includes("eyecolor")|| input.toLowerCase().includes("height") 
-    || input.toLowerCase().includes("occupation");
-}
+
 function searchByMany(list, people){
     let results = people.filter(function(el){
         for(let i=0; i < list.length; i++){
@@ -245,7 +241,6 @@ function listNames(people, relationship){
 }
 
 function findPersonFamily(person, people){
-    let personFamily = `${person.firstName} ${person.lastName} family members are:\n`
     personFamily += findPersonSpouse(person, people)
     personFamily += findPersonSiblings(person, people)
     personFamily += findPersonParents(person, people)
@@ -335,117 +330,80 @@ function searchByTraits(people) {
         return searchByMultipleTraits(people);
     }
 }
-
 function searchBySingleTrait(people){
-    let theTrait = promptFor(`What trait would you like to search for? \n"gender"\n"eyecolor"\n"height"\n"weight"\n"occupation`, correctionCase)
-    // switch(theTrait){
-    let input;
-    switch (theTrait) {
-        case "gender":
-            input = searchFor("gender")
-            break;
-        case "eyecolor":
-            input = searchFor("eyecolor")
-            break;
-        case "height":
-            input = searchFor("height")
-            break;
-        case "weight":
-            input = searchFor("weight")
-            break;
-        case "occupation":
-            input = searchFor("occupation")
-            break;
-        case "restart":
-            break;    
-        case "quit":
-            break;    
-        
-    
-        // case 'gender':
-        //     let genderOption = promptFor('Please choose a gender to search for: ', chars)
-        //     let genderedPeopleArray = people.filter(function(person){
-        //         if(genderOption === person.gender){
-        //             return true;
-        //         }
-                   
-        //     })
-        //     displayPeople(genderedPeopleArray)
-        //     break;
-            
-            
-        // case 'eyecolor':
-        //     let eyeColorOption = promptFor('Please choose an eye color to search for: ', chars)
-        //     let eyeColorPeopleArray = people.filter(function(person){
-        //         if(eyeColorOption === person.eyeColor){
-        //             return true;
-        //         }
-                
-        //     })
-        //     displayPeople(eyeColorPeopleArray)
-        //     break;
-      
-
-        // case 'height':
-        //     let heightOption = promptFor('Please choose a height to search for: ',chars)
-        //     var theHeight = parseInt(heightOption);
-        //     let heightPeopleArray = people.filter(function(person){
-        //         if(theHeight === person.height){
-        //             return true;
-        //         }
-                
-        //     })
-        //     displayPeople(heightPeopleArray)
-        //     break;
-
-        // case 'weight':
-        //     let weightOption = promptFor('Please choose a weight to search for: ', chars)
-        //     var theWeight = parseInt(weightOption);
-        //     let weightPeopleArray = people.filter(function(person){
-        //         if(theWeight === person.weight){
-        //             return true;
-        //         }
-                
-        //     })
-        //     displayPeople(weightPeopleArray)
-        //     break;
-
-        // case 'occupation':
-        //     let occupationOption = promptFor('Please choose an occupation to search for: ', chars)
-        //     let occupationPeopleArray = people.filter(function(person){
-        //         if(occupationOption === person.occupation){
-        //             return true;
-        //         }
-                
-        //     })
-            // displayPeople(occupationPeopleArray)
-            // break;
-
-        default:
-            break;
-
+    let traitSearch = promptFor('What trait do you want to search for?', chars)
+    if(traitSearch === 'gender'){
+        return searchByGender(people)
     }
-    let results = searchBy(theTrait, input, people)
-    let filterdResults = listNames(results, 'Your Results are: ')
-    return filterdResults
+    else if(traitSearch === 'eyecolor'){
+        return searchByeyeColor(people)
+    }
+    else if(traitSearch === 'weight'){
+        return searchByWeight(people)
+    }
+    else if(traitSearch === 'height'){
+        return searchByHeight(people)
+    }
+    else if(traitSearch === 'occupation'){
+        return searchByOccupation(people)
+    }
+
 }
 
+function searchByGender(people){
+    let genderSelection = promptFor("What is the gender you are searching for?", chars);
 
 
-
-function searchByMultipleTraits(people){
-    let traits = []
-    let theResults = []
-    let selectedTraits = promptFor('What Traits would you like to search for? "gender", "eyecolor", "occupation", "height", "weight"(please select at least 2): ', chars)
-    traits.push(selectedTraits)
-    let specificTraits = []
-    let manyTraits = promptFor(`Please choose a ${traits}`, chars)
-    specificTraits.push(manyTraits)
-    theResults = people.filter(function(el){
-        if(el.){
+    let foundPersons = people.filter(function (person) {
+        if (person.gender === genderSelection ) {
             return true;
-        } 
-
+        }
+    });
+    return displayPeople(foundPersons);
+}
     
-        displayPeople(theResults)
-    })}
+function searchByeyeColor(people) {
+    let eyeSelection = promptFor("What is the gender you are searching for?", chars);
+
+
+    let foundPersons = people.filter(function (person) {
+        if (person.gender === eyeSelection ) {
+            return true;
+        }
+    });
+    return displayPeople(foundPersons);
+}    
+function searchByWeight(people) {
+    let weightSelection = promptFor("What is the gender you are searching for?", chars);
+
+
+    let foundPersons = people.filter(function (person) {
+        if (person.gender === weightSelection ) {
+            return true;
+        }
+    });
+    return displayPeople(foundPersons);
+}    
+function searchByHeight(people) {
+    let heightSelection = promptFor("What is the gender you are searching for?", chars);
+
+
+    let foundPersons = people.filter(function (person) {
+        if (person.gender === heightSelection ) {
+            return true;
+        }
+    });
+    return displayPeople(foundPersons);
+}    
+function searchByOccupation(people) {
+    let occupationSelection = promptFor("What is the gender you are searching for?", chars);
+
+
+    let foundPersons = people.filter(function (person) {
+        if (person.gender === occupationSelection ) {
+            return true;
+        }
+    });
+    return displayPeople(foundPersons);
+} 
+ 
