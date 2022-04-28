@@ -377,21 +377,20 @@ function searchBySingleTrait(people){
 }
 
 function searchByMultipleTraits(people){
-    let traitArr = []
-    traitArr.push(promptFor('Please select at least two traits to search by. "gender", "eyecolor", "weight", "height", "occupation": ', chars))
-    let specificTraits = []
-    specificTraits.push(promptFor(`Please select a ${traitArr}`, chars))
-    let theSearch = people.filter(function(person){
-        if(person.specificTraits === person){
-            return true;  
-        }
-        displayPeople(theSearch);
-    })
+    let numberOfTraits = promptFor('How many traits would you like to search for, select 2-5',chars)
+    let x = 0
+    while(parseInt(numberOfTraits)>x){
+        x++;
+        return searchBySingleTrait(people)
+
+    }
+
+   
 }
 
 function searchByGender(people){
     let genderSelection = promptFor("What is the gender you are searching for?", chars);
-    let foundPersons = people.filter(function (person) {
+    let foundPersons = people.filter(function(person) {
         if (person.gender === genderSelection ) {
             return true;
         }
@@ -406,6 +405,7 @@ function searchByeyeColor(people) {
             return true;
         }
     });
+    if()
     return displayPeople(foundPersons);
 } 
 
