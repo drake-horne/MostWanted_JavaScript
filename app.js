@@ -196,6 +196,7 @@ function searchFor(trait){
     let input = promptFor(`Enter a ${trait}`, chars)
     return input;
 }
+
 function searchBy(trait, thing, people){
     let results = people.filter(function(el){
         if(el[trait] === thing){
@@ -241,6 +242,7 @@ function listNames(people, relationship){
 }
 
 function findPersonFamily(person, people){
+    let personFamily = `${person.firstName} ${person.lastName} family members are:\n`
     personFamily += findPersonSpouse(person, people)
     personFamily += findPersonSiblings(person, people)
     personFamily += findPersonParents(person, people)
@@ -248,19 +250,26 @@ function findPersonFamily(person, people){
 }
 
 function findPersonSpouse(person, people){
+    let personSpouse = ``
     let spouse = people.filter(function(el){
-        if(person.currentSpouse === el.id){
+        if(person.currentSpouse == el.id){
             return true
         }
         else{
             return false
         } 
     })
-    let spouseList = listNames(spouse, 'The Spouses are: ')
-        return spouseList
+    if(spouse.length == 0){
+        personSpouse += `\nNo spouse in the system.\n`; 
+    }
+    else if(spouse.length == 1){
+        personSpouse += `\nSpouse:\n${spouse[0].firstName} ${spouse[0].lastName}\n`;
+    }
+    return personSpouse
 }
 
 function findPersonParents(person, people){
+    let personParents = ``
     let parents = people.filter(function(el){
         if(person.parents.includes(el.id)){
                 return true
@@ -270,11 +279,20 @@ function findPersonParents(person, people){
             }   
         })
        
-    let parentList = listNames(parents, 'The Parents are: ')
-        return parentList
-
+    let parentList = parents.map(function(el){
+        return `\n${el.firstName} ${el.lastName}`
+    })
+    if(parents.length > 0){
+        personParents += `\nParents:${parentList}\n`
+    }
+    else{
+        personParents += `\nNo parents in the system.\n`
+        }
+    return personParents    
 }
+
 function findPersonSiblings(person, people){
+    let personSiblings = ``
     let siblings = people.filter(function(el){
         if((person.parents.includes(el.parents[0]) || person.parents.includes(el.parents[1])) && person.id != el.id){
             return true;
@@ -283,8 +301,16 @@ function findPersonSiblings(person, people){
             return false;
         }
     })
-    let siblingsList = listNames(siblings, 'The Siblings are: ')
-        return siblingsList
+    let siblingList = siblings.map(function(el){
+        return `\n${el.firstName} ${el.lastName}`
+    })
+    if(siblings.length > 0){
+        personSiblings += `\nSiblings:${siblingList}\n`        
+    }
+    else{
+        personSiblings += `\nNo siblings in the system.\n`
+    }
+    return personSiblings
 }
 
 function findPersonChildren(person, people){
@@ -320,7 +346,6 @@ function findPersonDescendants(person,people){
     return descendants
 }
 
-
 function searchByTraits(people) {
     let searchOption = promptFor('Would you like to search for one or many traits?(type "one" or "many") ', chars)
     if(searchOption === 'one'){
@@ -330,8 +355,9 @@ function searchByTraits(people) {
         return searchByMultipleTraits(people);
     }
 }
+
 function searchBySingleTrait(people){
-    let traitSearch = promptFor('What trait do you want to search for?', chars)
+    let traitSearch = promptFor('What trait do you want to search for? "gender", "eyecolor", "weight", "height", "occupation": ', chars)
     if(traitSearch === 'gender'){
         return searchByGender(people)
     }
@@ -350,10 +376,21 @@ function searchBySingleTrait(people){
 
 }
 
+function searchByMultipleTraits(people){
+    let traitArr = []
+    traitArr.push(promptFor('Please select at least two traits to search by. "gender", "eyecolor", "weight", "height", "occupation": ', chars))
+    let specificTraits = []
+    specificTraits.push(promptFor(`Please select a ${traitArr}`, chars))
+    let theSearch = people.filter(function(person){
+        if(person.specificTraits === person){
+            return true;  
+        }
+        displayPeople(theSearch);
+    })
+}
+
 function searchByGender(people){
     let genderSelection = promptFor("What is the gender you are searching for?", chars);
-
-
     let foundPersons = people.filter(function (person) {
         if (person.gender === genderSelection ) {
             return true;
@@ -364,41 +401,36 @@ function searchByGender(people){
     
 function searchByeyeColor(people) {
     let eyeSelection = promptFor("What is the eyecolor you are searching for?", chars);
-
-
     let foundPersons = people.filter(function (person) {
         if (person.eyeColor === eyeSelection ) {
             return true;
         }
     });
     return displayPeople(foundPersons);
-}    
+} 
+
 function searchByWeight(people) {
     let weightSelection = promptFor("What is the weight you are searching for?", chars);
-
-
     let foundPersons = people.filter(function (person) {
         if (person.weight === parseInt(weightSelection)) {
             return true;
         }
     });
     return displayPeople(foundPersons);
-}    
+} 
+
 function searchByHeight(people) {
     let heightSelection = promptFor("What is the height you are searching for?", chars);
-
-
     let foundPersons = people.filter(function (person) {
         if (person.height === parseInt(heightSelection)) {
             return true;
         }
     });
     return displayPeople(foundPersons);
-}    
+} 
+
 function searchByOccupation(people) {
     let occupationSelection = promptFor("What is the occupation you are searching for?", chars);
-
-
     let foundPersons = people.filter(function (person) {
         if (person.occupation === occupationSelection ) {
             return true;
@@ -406,4 +438,3 @@ function searchByOccupation(people) {
     });
     return displayPeople(foundPersons);
 } 
- 
