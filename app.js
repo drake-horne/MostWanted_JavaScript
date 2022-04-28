@@ -377,15 +377,52 @@ function searchBySingleTrait(people){
 }
 
 function searchByMultipleTraits(people){
-    let numberOfTraits = promptFor('How many traits would you like to search for, select 2-5',chars)
-    let x = 0
-    while(parseInt(numberOfTraits)>x){
-        x++;
-        return searchBySingleTrait(people)
-
-    }
+    let genderChoice = prompt(`input "gender":\n press enter to skip or type 'restart' or 'quit'.`);
+    let eyeColorChoice = prompt(`input "eyecolor":\n press enter to skip or type 'restart' or 'quit'.`);
+    let weightChoice = prompt(`input "weight":\n press enter to skip or type 'restart' or 'quit'.`);
+    let heightChoice = prompt(`input "height":\n press enter to skip or type 'restart' or 'quit'.`);
+    let occupationChoice = prompt(`input "occupation":\n press enter to skip or type 'restart' or 'quit'.`);
+    genderChoice = traitFilter(people, genderChoice)
+    eyeColorChoice = traitFilter(people, eyeColorChoice)
+    heightChoice = traitFilter(people, heightChoice)
+    weightChoice = traitFilter(people, weightChoice)
+    occupationChoice = traitFilter(people, occupationChoice)
+    let traitMatch;
+    if(eyeColorChoice[0] !== undefined){
+        traitMatch = people.filter(function(el){
+            if(el.eyeColor === eyeColorChoice[0].eyeColor){
+                return true;}
+        })}
+    if(genderChoice[0] !== undefined){
+        traitMatch = people.filter(function(el){
+            if(el.gender === genderChoice[0].gender){
+                return true;}
+        })}
+    if(heightChoice[0] !== undefined){
+        traitMatch = people.filter(function(el){
+            if(el.height === heightChoice[0].height){
+                return true;}
+        })}
+    if(weightChoice[0] !== undefined){
+        traitMatch = people.filter(function(el){
+            if(el.weight === weightChoice[0].weight){
+                return true;}
+        })}
+    if(occupationChoice[0] !== undefined){
+        traitMatch = people.filter(function(el){
+            if(el.occupation === occupationChoice[0].occupation){
+                return true;}
+        })}
+    return displayPeople(traitMatch);                        
 
    
+}
+function traitFilter(people, choice){
+    let theTraits = people.filter(function(el){
+        if (el.gender === choice || el.eyeColor === choice || el.height === choice || el.weight === choice || el.occupation === choice) {
+            return true;
+    }})
+    return theTraits;
 }
 
 function searchByGender(people){
@@ -405,7 +442,6 @@ function searchByeyeColor(people) {
             return true;
         }
     });
-    if()
     return displayPeople(foundPersons);
 } 
 
