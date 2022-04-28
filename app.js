@@ -186,12 +186,35 @@ function yesNo(input) {
  * @returns {Boolean}           Default validation -- no logic yet.
  */
 function chars(input) {
-    return true; // Default validation only
+    var selection = /^[A-Za-z]+$/;
+    if (input.match(selection)){
+        return true;
+    }
+    else
+    {
+        alert('Wrong input, you need to use only letters in your selection. Please type your selection again: ')
+        return false
+    }
+     // Default validation only
 }
 // // End of chars()
 
 // //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // // Any additional functions can be written below this line 👇. Happy Coding! 😁
+function validation(input){
+    var selection = /^[A-Za-z0-9" ":/]+$/;
+    var category = ["firstName","lastName","gender","dob","height","weight","eyeColor","occupation"]
+    if(input.match(selection) && category.some(cat => input.includes(cat)))
+     {
+      return true;
+     }
+    else
+     {
+     alert('Wrong input, you need to use only letters and numbers in your selection. Please type your selection again: ');
+     return false;
+     }
+}
+
 function searchFor(trait){
     let input = promptFor(`Enter a ${trait}`, chars)
     return input;
@@ -504,13 +527,6 @@ function searchByOccupation(people) {
     });
     return displayPeople(foundPersons);
 } 
-
-
-
-
-
-
-
 
 
 // (5 points): As a user, after locating a person, I want to see only that person’s 
