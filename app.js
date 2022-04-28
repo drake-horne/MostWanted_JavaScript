@@ -377,39 +377,41 @@ function searchBySingleTrait(people){
 }
 
 function searchByMultipleTraits(people){
-    let genderChoice = prompt(`input "gender":\n press enter to skip or type 'restart' or 'quit'.`);
-    let eyeColorChoice = prompt(`input "eyecolor":\n press enter to skip or type 'restart' or 'quit'.`);
-    let weightChoice = prompt(`input "weight":\n press enter to skip or type 'restart' or 'quit'.`);
-    let heightChoice = prompt(`input "height":\n press enter to skip or type 'restart' or 'quit'.`);
-    let occupationChoice = prompt(`input "occupation":\n press enter to skip or type 'restart' or 'quit'.`);
-    genderChoice = traitFilter(people, genderChoice)
-    eyeColorChoice = traitFilter(people, eyeColorChoice)
-    heightChoice = traitFilter(people, heightChoice)
-    weightChoice = traitFilter(people, weightChoice)
-    occupationChoice = traitFilter(people, occupationChoice)
-    let traitMatch;
+    let genderChoices = prompt(`input a "gender":\n press enter to skip this choice or type 'restart' or 'quit'.`);
+    let eyeColorChoices= prompt(`input an "eyecolor":\n press enter to skip this choice or type 'restart' or 'quit'.`);
+    let weightChoices = prompt(`input a "weight":\n press enter to skip this choice or type 'restart' or 'quit'.`);
+    let heightChoices = prompt(`input a "height":\n press enter to skip this choice or type 'restart' or 'quit'.`);
+    let occupationChoices = prompt(`input an "occupation":\n press enter to skip this choice or type 'restart' or 'quit'.`);
+
+    let genderChoice = genderFilter(people, genderChoices)
+    let eyeColorChoice = eyeFilter(people, eyeColorChoices)
+    let heightChoice = heightFilter(people, heightChoices)
+    let weightChoice = weightFilter(people, weightChoices)
+    let occupationChoice = occupationFilter(people, occupationChoices)
+    let traitMatch = people;
+    
     if(eyeColorChoice[0] !== undefined){
-        traitMatch = people.filter(function(el){
+        traitMatch = traitMatch.filter(function(el){
             if(el.eyeColor === eyeColorChoice[0].eyeColor){
                 return true;}
         })}
     if(genderChoice[0] !== undefined){
-        traitMatch = people.filter(function(el){
+        traitMatch = traitMatch.filter(function(el){
             if(el.gender === genderChoice[0].gender){
                 return true;}
         })}
     if(heightChoice[0] !== undefined){
-        traitMatch = people.filter(function(el){
+        traitMatch = traitMatch.filter(function(el){
             if(el.height === heightChoice[0].height){
                 return true;}
         })}
     if(weightChoice[0] !== undefined){
-        traitMatch = people.filter(function(el){
+        traitMatch = traitMatch.filter(function(el){
             if(el.weight === weightChoice[0].weight){
                 return true;}
         })}
     if(occupationChoice[0] !== undefined){
-        traitMatch = people.filter(function(el){
+        traitMatch = traitMatch.filter(function(el){
             if(el.occupation === occupationChoice[0].occupation){
                 return true;}
         })}
@@ -417,12 +419,40 @@ function searchByMultipleTraits(people){
 
    
 }
-function traitFilter(people, choice){
-    let theTraits = people.filter(function(el){
-        if (el.gender === choice || el.eyeColor === choice || el.height === choice || el.weight === choice || el.occupation === choice) {
+function genderFilter(people, choice){
+    let genderTraits = people.filter(function(el){
+        if (el.gender === choice) {
             return true;
     }})
-    return theTraits;
+    return genderTraits;
+}
+function eyeFilter(people, choice){
+    let eyeTraits = people.filter(function(el){
+        if (el.eyeColor === choice ) {
+            return true;
+    }})
+    return eyeTraits;
+}
+function heightFilter(people, choice){
+    let heightTraits = people.filter(function(el){
+        if (el.height === choice ) {
+            return true;
+    }})
+    return heightTraits;
+}
+function weightFilter(people, choice){
+    let weightTraits = people.filter(function(el){
+        if (el.weight === choice ) {
+            return true;
+    }})
+    return weightTraits;
+}
+function occupationFilter(people, choice){
+    let occupationTraits = people.filter(function(el){
+        if (el.occupation === choice ) {
+            return true;
+    }})
+    return occupationTraits;
 }
 
 function searchByGender(people){
@@ -474,3 +504,14 @@ function searchByOccupation(people) {
     });
     return displayPeople(foundPersons);
 } 
+
+
+
+
+
+
+
+
+
+// (5 points): As a user, after locating a person, I want to see only that person’s 
+// descendants (display the names of the descendants), using recursion.
